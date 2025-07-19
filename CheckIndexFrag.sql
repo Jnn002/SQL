@@ -1,3 +1,6 @@
+USE AdventureWorks2019;
+GO
+
 
 SELECT 
 	S.name as 'Schema',
@@ -17,4 +20,9 @@ WHERE
 	DDIPS.database_id = DB_ID()
 	AND I.name is not null
 	AND DDIPS.avg_fragmentation_in_percent > 0
-ORDER BY DDIPS.avg_fragmentation_in_percent desc
+	AND 
+		(T.name = 'SalesOrderHeader'
+			OR
+		 T.name = 'SalesOrderDetail'
+		)
+ORDER BY DDIPS.avg_fragmentation_in_percent DESC, 'Table'
